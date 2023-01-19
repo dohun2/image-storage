@@ -1,4 +1,3 @@
 {
-  "extends": ["plugin:prettier/recommended"],
-  "parser": "babel-parser"
+  "extends": ["react-app", "plugin:prettier/recommended"]
 }
