@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 import Color from '../utils/color';
+import { Link } from 'react-router-dom';
+import useInput from '../hooks/useInput';
+import { useCallback } from 'react';
+import axios from 'axios';
+
 const SignUp = () => {
+  const [email, onChangeEmail] = useInput('');
+  const [id, onChangeId] = useInput('');
+  const [password, onChangePassword] = useInput('');
+  const [passwordCheck, onChangePasswordCheck] = useInput('');
   return (
     <div id="container">
       <Header>Image Storage</Header>
@@ -8,28 +17,35 @@ const SignUp = () => {
         <Label htmlFor="email">
           <span>이메일 주소</span>
           <div>
-            <Input type="email" id="email" name="email" />
+            <Input value={email} onChange={onChangeEmail} type="email" id="email" name="email" />
           </div>
         </Label>
         <Label htmlFor="id">
           <span>아이디</span>
           <div>
-            <Input type="text" id="id" name="id" />
+            <Input value={id} onChange={onChangeId} type="text" id="id" name="id" />
           </div>
         </Label>
         <Label htmlFor="id">
           <span>비밀번호</span>
           <div>
-            <Input type="password" id="password" name="password" />
+            <Input value={password} onChange={onChangePassword} type="password" id="password" name="password" />
           </div>
         </Label>
         <Label htmlFor="id">
           <span>비밀번호 확인</span>
           <div>
-            <Input type="password" id="password-check" name="password-check" />
+            <Input
+              value={passwordCheck}
+              onChange={onChangePasswordCheck}
+              type="password"
+              id="password-check"
+              name="password-check"
+            />
           </div>
         </Label>
         <Button>회원가입</Button>
+        <TextLink to={'/login'}>로그인 하러가기</TextLink>
       </Form>
     </div>
   );
@@ -110,4 +126,16 @@ const Button = styled.button`
     box-shadow: 0 0 0 5px;
   }
 `;
+
+const TextLink = styled(Link)`
+  font-size: 13px;
+  color: ${Color[500]};
+  &:hover {
+    color: ${Color[900]};
+  }
+  &:focus {
+    color: ${Color[900]};
+  }
+`;
+
 export default SignUp;
