@@ -2,18 +2,61 @@ import styled from 'styled-components';
 import Color from '../utils/color';
 import { Link } from 'react-router-dom';
 import useInput from '../hooks/useInput';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import axios from 'axios';
+import API from '../utils/api';
 
 const SignUp = () => {
-  const [email, onChangeEmail] = useInput('');
-  const [id, onChangeId] = useInput('');
-  const [password, onChangePassword] = useInput('');
-  const [passwordCheck, onChangePasswordCheck] = useInput('');
+  const [email, onChangeEmail, setEmail] = useInput('');
+  const [id, onChangeId, setId] = useInput('');
+  const [password, , setPassword] = useInput('');
+  const [passwordCheck, , setPasswordCheck] = useInput('');
+  const [mismatchPassword, setMismatchPassword] = useState(true);
+
+  const onChangePassword = useCallback(
+    (e) => {
+      setPassword(e.target.value);
+      setMismatchPassword(e.target.value !== passwordCheck);
+    },
+    [setPassword, passwordCheck],
+  );
+
+  const onChangePasswordCheck = useCallback(
+    (e) => {
+      setPasswordCheck(e.target.value);
+      setMismatchPassword(e.target.value !== password);
+    },
+    [setPasswordCheck, password],
+  );
+
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!mismatchPassword) {
+        axios
+          .post(API.Login, {
+            email,
+            id,
+            password,
+          })
+          .then((response) => {
+            console.log(response);
+            setEmail('');
+            setId('');
+            setPassword('');
+            setPasswordCheck('');
+          })
+          .catch((error) => {
+            console.log(error.response);
+          });
+      }
+    },
+    [mismatchPassword, email, id, password, setEmail, setId, setPassword, setPasswordCheck],
+  );
   return (
     <div id="container">
       <Header>Image Storage</Header>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Label htmlFor="email">
           <span>이메일 주소</span>
           <div>
