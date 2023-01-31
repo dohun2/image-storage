@@ -88,6 +88,7 @@ const SignUp = () => {
           </div>
         </Label>
         <Button>회원가입</Button>
+        {mismatchPassword ? <Error>비밀번호가 일치하지 않습니다.</Error> : null}
         <TextLink to={'/login'}>로그인 하러가기</TextLink>
       </Form>
     </div>
@@ -179,6 +180,11 @@ const TextLink = styled(Link)`
   &:focus {
     color: ${Color[900]};
   }
+`;
+
+const Error = styled.div`
+  color: red;
+  margin: 3px;
 `;
 
 export default SignUp;
