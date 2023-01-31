@@ -20,7 +20,16 @@ public class UserService {
     	int result = userRepository.createUserBy(user);
     	System.out.println("result : "+result);
     
-    	return 0;
+    	return result;
+
+    }
+    
+    
+    public List<Users> selectListUsers(){
+    	List<Users> result = userRepository.selectListUsers();
+  
+ 
+    	return result;
 
     }
 }

@@ -19,4 +19,9 @@ public interface UserRepository extends JpaRepository<Users, Long>{
 	@Query(value = "INSERT INTO imgst.users(id, \"password\", email) VALUES( :#{#user.id}, :#{#user.password}, :#{#user.email}) ", nativeQuery = true)
 	int createUserBy(@Param("user")Users user);
 	
+	
+	
+	@Query(value = "select * from imgst.users ", nativeQuery = true)
+	List<Users> selectListUsers();
+	
 }
