@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Color from '../utils/color';
 import { Link } from 'react-router-dom';
 import useInput from '../hooks/useInput';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import axios from 'axios';
 import API from '../utils/api';
 
@@ -12,6 +12,9 @@ const SignUp = () => {
   const [password, , setPassword] = useInput('');
   const [passwordCheck, , setPasswordCheck] = useInput('');
   const [mismatchPassword, setMismatchPassword] = useState(true);
+  const emailRef = useRef();
+  const idRef = useRef();
+  const passwordRef = useRef();
 
   const onChangePassword = useCallback(
     (e) => {
@@ -32,24 +35,34 @@ const SignUp = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      if (!mismatchPassword) {
-        axios
-          .post(API.Login, {
-            email,
-            id,
-            password,
-          })
-          .then((response) => {
-            console.log(response);
-            setEmail('');
-            setId('');
-            setPassword('');
-            setPasswordCheck('');
-          })
-          .catch((error) => {
-            console.log(error.response);
-          });
+      if (!email) {
+        emailRef.current.focus();
+        return;
       }
+      if (!id || !id.trim()) {
+        idRef.current.focus();
+        return;
+      }
+      if (mismatchPassword || !password.trim()) {
+        passwordRef.current.focus();
+        return;
+      }
+      axios
+        .post(API.Login, {
+          email,
+          id,
+          password,
+        })
+        .then((response) => {
+          console.log(response);
+          setEmail('');
+          setId('');
+          setPassword('');
+          setPasswordCheck('');
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
     [mismatchPassword, email, id, password, setEmail, setId, setPassword, setPasswordCheck],
   );
@@ -60,19 +73,26 @@ const SignUp = () => {
         <Label htmlFor="email">
           <span>이메일 주소</span>
           <div>
-            <Input value={email} onChange={onChangeEmail} type="email" id="email" name="email" />
+            <Input ref={emailRef} value={email} onChange={onChangeEmail} type="email" id="email" name="email" />
           </div>
         </Label>
         <Label htmlFor="id">
           <span>아이디</span>
           <div>
-            <Input value={id} onChange={onChangeId} type="text" id="id" name="id" />
+            <Input ref={idRef} value={id} onChange={onChangeId} type="text" id="id" name="id" />
           </div>
         </Label>
         <Label htmlFor="id">
           <span>비밀번호</span>
           <div>
-            <Input value={password} onChange={onChangePassword} type="password" id="password" name="password" />
+            <Input
+              ref={passwordRef}
+              value={password}
+              onChange={onChangePassword}
+              type="password"
+              id="password"
+              name="password"
+            />
           </div>
         </Label>
         <Label htmlFor="id">
@@ -88,6 +108,8 @@ const SignUp = () => {
           </div>
         </Label>
         <Button>회원가입</Button>
+        {!email ? <Error>이메일이 입력되지 않았습니다.</Error> : null}
+        {!id ? <Error>아이디가 입력되지 않았습니다.</Error> : null}
         {mismatchPassword ? <Error>비밀번호가 일치하지 않습니다.</Error> : null}
         <TextLink to={'/login'}>로그인 하러가기</TextLink>
       </Form>
@@ -113,8 +135,6 @@ const Form = styled.form`
   max-width: 500px;
   /* background-color: ${Color[400]}; */
   /* padding: 20px; */
-  /* padding-left: 100px; */
-  /* padding-right: 100px; */
 `;
 
 const Label = styled.label`
@@ -183,6 +203,7 @@ const TextLink = styled(Link)`
 `;
 
 const Error = styled.div`
+  font-size: 13px;
   color: red;
   margin: 3px;
 `;
