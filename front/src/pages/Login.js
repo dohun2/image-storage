@@ -2,36 +2,16 @@ import styled from 'styled-components';
 import Color from '../utils/color';
 import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import axios from 'axios';
 import API from '../utils/api';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [email, onChangeEmail, setEmail] = useInput('');
-  const [id, onChangeId, setId] = useInput('');
-  const [password, , setPassword] = useInput('');
-  const [passwordCheck, , setPasswordCheck] = useInput('');
-  const [mismatchPassword, setMismatchPassword] = useState(true);
+  const [password, onChangePassword, setPassword] = useInput('');
   const emailRef = useRef();
-  const idRef = useRef();
   const passwordRef = useRef();
-
-  const onChangePassword = useCallback(
-    (e) => {
-      setPassword(e.target.value);
-      setMismatchPassword(e.target.value !== passwordCheck);
-    },
-    [setPassword, passwordCheck],
-  );
-
-  const onChangePasswordCheck = useCallback(
-    (e) => {
-      setPasswordCheck(e.target.value);
-      setMismatchPassword(e.target.value !== password);
-    },
-    [setPasswordCheck, password],
-  );
 
   const onSubmit = useCallback(
     (e) => {
@@ -40,48 +20,35 @@ const SignUp = () => {
         emailRef.current.focus();
         return;
       }
-      if (!id || !id.trim()) {
-        idRef.current.focus();
-        return;
-      }
-      if (mismatchPassword || !password.trim()) {
+      if (!password) {
         passwordRef.current.focus();
         return;
       }
       axios
-        .post(API.SignUp, {
+        .post(API.Login, {
           email,
-          id,
           password,
         })
         .then((response) => {
           console.log(response);
           setEmail('');
-          setId('');
           setPassword('');
-          setPasswordCheck('');
-          navigate('/login');
+          navigate('/home');
         })
         .catch((error) => {
           console.log(error.response);
         });
     },
-    [mismatchPassword, email, id, password, setEmail, setId, setPassword, setPasswordCheck, navigate],
+    [email, password, setEmail, setPassword, navigate],
   );
   return (
     <div id="container">
       <Header>Image Storage</Header>
       <Form onSubmit={onSubmit}>
         <Label htmlFor="email">
-          <span>이메일 주소</span>
+          <span>이메일</span>
           <div>
             <Input ref={emailRef} value={email} onChange={onChangeEmail} type="email" id="email" name="email" />
-          </div>
-        </Label>
-        <Label htmlFor="id">
-          <span>아이디</span>
-          <div>
-            <Input ref={idRef} value={id} onChange={onChangeId} type="text" id="id" name="id" />
           </div>
         </Label>
         <Label htmlFor="id">
@@ -97,23 +64,10 @@ const SignUp = () => {
             />
           </div>
         </Label>
-        <Label htmlFor="id">
-          <span>비밀번호 확인</span>
-          <div>
-            <Input
-              value={passwordCheck}
-              onChange={onChangePasswordCheck}
-              type="password"
-              id="password-check"
-              name="password-check"
-            />
-          </div>
-        </Label>
-        <Button>회원가입</Button>
+        <Button>로그인</Button>
         {!email ? <Error>이메일이 입력되지 않았습니다.</Error> : null}
-        {!id ? <Error>아이디가 입력되지 않았습니다.</Error> : null}
-        {mismatchPassword ? <Error>비밀번호가 일치하지 않습니다.</Error> : null}
-        <TextLink to={'/login'}>로그인 하러가기</TextLink>
+        {!password ? <Error>비밀번호가 입력되지 않았습니다.</Error> : null}
+        <TextLink to={'/signup'}>회원가입 하러가기</TextLink>
       </Form>
     </div>
   );
