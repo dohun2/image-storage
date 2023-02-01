@@ -1,6 +1,6 @@
 const API = {
   // user
-  // 브랜
+  // 브랜치ㅁ
   Login: '',
 };
 
