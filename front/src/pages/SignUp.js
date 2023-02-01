@@ -120,31 +120,31 @@ const SignUp = () => {
 const Header = styled.header`
   text-align: center;
   font-weight: 700;
-  font-size: 48px;
+  font-size: 3rem;
   /* font-family: 'Jua', sans-serif; */
   font-family: 'Yeon Sung', cursive;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 `;
 
 const Form = styled.form`
   border-radius: 5px;
   border: none;
   margin: 0 auto;
-  width: 300px;
-  max-width: 500px;
+  width: 20rem;
+  max-width: 20rem;
   /* background-color: ${Color[400]}; */
   /* padding: 20px; */
 `;
 
 const Label = styled.label`
-  margin-bottom: 5px;
+  margin-bottom: 0.3rem;
   & > span {
     color: ${Color[900]};
     display: block;
     text-align: left;
-    padding-bottom: 5px;
-    font-size: 15px;
+    padding-bottom: 0.3rem;
+    font-size: 1rem;
     cursor: pointer;
     line-height: 1.5;
     font-weight: 600;
@@ -156,43 +156,51 @@ const Input = styled.input`
   border: 1px solid black;
   transition: border 80ms ease-out, box-shadow 80ms ease-out;
   box-sizing: border-box;
-  margin: 0 0 20px;
+  margin: 0 0 1rem;
   width: 100%;
-  padding-top: 11px;
-  padding-bottom: 13px;
-  font-size: 15px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  font-size: 1rem;
 `;
 
 const Button = styled.button`
-  margin-bottom: 12px;
+  margin-bottom: 0.7rem;
   width: 100%;
   max-width: 100%;
   color: white;
   background-color: ${Color[600]};
   border: none;
-  font-size: 18px;
+  font-size: 1.2rem;
   font-weight: 900;
-  height: 44px;
-  min-width: 96px;
-  padding: 0 16px 3px;
+  height: 3rem;
+  min-width: 5rem;
+  padding: 0 1rem 0.2rem;
   transition: all 80ms linear;
   user-select: none;
   outline: none;
   cursor: pointer;
   border-radius: 5px;
-  box-shadow: 0 1px 4px;
+  box-shadow: 0 0.1rem 0.25rem;
   &:hover {
     background-color: ${Color[800]};
     border: none;
   }
   &:focus {
     background-color: ${Color[800]};
-    box-shadow: 0 0 0 5px;
+    box-shadow: 0 0 0 0.4rem;
   }
 `;
-//
+
+const Error = styled.div`
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: red;
+  margin-left: 0.1rem;
+  margin-bottom: 0.3rem;
+`;
+
 const TextLink = styled(Link)`
-  font-size: 13px;
+  font-size: 0.8rem;
   color: ${Color[500]};
   &:hover {
     color: ${Color[900]};
@@ -200,12 +208,6 @@ const TextLink = styled(Link)`
   &:focus {
     color: ${Color[900]};
   }
-`;
-
-const Error = styled.div`
-  font-size: 13px;
-  color: red;
-  margin: 3px;
 `;
 
 export default SignUp;
