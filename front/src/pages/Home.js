@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import NavigationBar from '../components/NavigationBar';
 
 const Home = () => {
   const year = new Date().getFullYear();
@@ -15,7 +16,7 @@ const Home = () => {
 
   return (
     <div>
-      <nav>네비게이션 바</nav>
+      <NavigationBar></NavigationBar>
       <TimeBar>
         <button onClick={onClickLeftBtn}>&lt;</button>
         <h1>{crrYear}</h1>
@@ -31,7 +32,6 @@ export default Home;
 const TimeBar = styled.div`
   display: flex;
   justify-content: center;
-  margin: 2rem;
   & > h1 {
     font-size: 3rem;
     margin-left: 2rem;
@@ -40,7 +40,7 @@ const TimeBar = styled.div`
   & > button {
     border: none;
     background-color: white;
-    font-size: 5rem;
+    font-size: 4rem;
     cursor: pointer;
   }
 `;
