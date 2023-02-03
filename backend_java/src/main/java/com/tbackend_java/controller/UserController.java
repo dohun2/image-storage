@@ -33,7 +33,6 @@ public class UserController {
 		return ResponseEntity.ok().body(result);
 	}
 	
-	
 	@GetMapping("select")
 	public ResponseEntity <List> createUsers() {
 	
@@ -41,6 +40,16 @@ public class UserController {
 		
 		return ResponseEntity.ok().body(result);
 	}
+	
+//	@RequestMapping("login")
+//	public ResponseEntity <List> login() {
+//	
+//		List<Users> result = userService.selectListUsers();
+//		
+//		return ResponseEntity.ok().body(result);
+//	}
+	
+	
 	
 	
 }
