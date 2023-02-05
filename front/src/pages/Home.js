@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
+import Sidebar from '../components/Sidebar';
 
 const Home = () => {
   const year = new Date().getFullYear();
@@ -17,6 +18,7 @@ const Home = () => {
   return (
     <div>
       <NavigationBar></NavigationBar>
+      <Sidebar></Sidebar>
       <TimeBar>
         <button onClick={onClickLeftBtn}>&lt;</button>
         <h1>{crrYear}</h1>
