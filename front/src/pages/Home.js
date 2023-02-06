@@ -26,9 +26,11 @@ const Home = () => {
         <h1>{crrYear}</h1>
         <button onClick={onClickRightBtn}>&gt;</button>
       </TimeBar>
-      {month.map((v, i) => (
-        <Calendar key={i} curMonth={new Date(new Date().setMonth(v))} />
-      ))}
+      <CalendarContainer>
+        {month.map((v, i) => (
+          <Calendar key={i} curMonth={new Date(new Date().setMonth(v))} />
+        ))}
+      </CalendarContainer>
     </div>
   );
 };
@@ -39,14 +41,21 @@ const TimeBar = styled.div`
   display: flex;
   justify-content: center;
   & > h1 {
+    margin-top: 4rem;
     font-size: 3rem;
     margin-left: 2rem;
     margin-right: 2rem;
   }
   & > button {
+    margin-top: 2rem;
     border: none;
     background-color: white;
     font-size: 4rem;
     cursor: pointer;
   }
+`;
+const CalendarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 `;

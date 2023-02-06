@@ -40,11 +40,11 @@ const Calendar = ({ curMonth }) => {
       </Week>
       <Days>
         {days.map((w, i) => (
-          <Week key={i}>
+          <OneWeek key={i}>
             {w.map((d, j) => (
-              <div key={j}>{d}</div>
+              <Day key={j}>{d}</Day>
             ))}
-          </Week>
+          </OneWeek>
         ))}
       </Days>
     </Container>
@@ -54,10 +54,43 @@ const Calendar = ({ curMonth }) => {
 export default Calendar;
 
 const Container = styled.div`
-  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+  border: 1px solid black;
+  margin: 0.5rem;
 `;
-const Month = styled.div``;
+const Month = styled.div`
+  border: 1px solid black;
+  font-weight: 600;
+`;
 const Week = styled.div`
   display: flex;
+  border: 1px solid black;
+  text-align: center;
+  & > div {
+    width: 100%;
+    /* border: 1px solid black; */
+  }
 `;
-const Days = styled.div``;
+
+const OneWeek = styled.div`
+  display: flex;
+  & :first-child {
+    color: red;
+  }
+  & :last-child {
+    color: blue;
+  }
+`;
+
+const Days = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+`;
+const Day = styled.div`
+  width: 100%;
+  border: 1px solid black;
+  cursor: pointer;
+`;
