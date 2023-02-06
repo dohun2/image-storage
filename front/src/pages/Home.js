@@ -2,10 +2,12 @@ import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
 import Sidebar from '../components/Sidebar';
+import Calendar from '../components/Calendar/Calendar';
 
 const Home = () => {
   const year = new Date().getFullYear();
   const [crrYear, setCrrYear] = useState(year);
+  const month = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
   const onClickLeftBtn = useCallback(() => {
     setCrrYear((e) => e - 1);
@@ -17,14 +19,16 @@ const Home = () => {
 
   return (
     <div>
-      <NavigationBar></NavigationBar>
-      <Sidebar></Sidebar>
+      <NavigationBar />
+      <Sidebar />
       <TimeBar>
         <button onClick={onClickLeftBtn}>&lt;</button>
         <h1>{crrYear}</h1>
         <button onClick={onClickRightBtn}>&gt;</button>
       </TimeBar>
-      <div>달력</div>
+      {month.map((v, i) => (
+        <Calendar key={i} curMonth={new Date(new Date().setMonth(v))} />
+      ))}
     </div>
   );
 };
