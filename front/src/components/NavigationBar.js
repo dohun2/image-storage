@@ -13,6 +13,8 @@ const NavigationBar = () => {
 export default NavigationBar;
 
 const Container = styled.div`
+  position: fixed;
+  width: 100%;
   background-color: ${Color[400]};
   display: flex;
   justify-content: space-between;
