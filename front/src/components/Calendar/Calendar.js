@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
-import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays } from 'date-fns';
+import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth } from 'date-fns';
 
 const Calendar = ({ curMonth }) => {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -16,7 +16,11 @@ const Calendar = ({ curMonth }) => {
     while (day <= lastWeek) {
       let oneWeek = [];
       for (let i = 0; i < 7; i++) {
-        oneWeek.push(format(day, 'd'));
+        if (isSameMonth(day, endMonth)) {
+          oneWeek.push([format(day, 'd'), true]);
+        } else {
+          oneWeek.push([format(day, 'd'), false]);
+        }
         day = addDays(day, 1);
       }
       days.push(oneWeek);
@@ -41,8 +45,10 @@ const Calendar = ({ curMonth }) => {
       <Days>
         {days.map((w, i) => (
           <OneWeek key={i}>
-            {w.map((d, j) => (
-              <Day key={j}>{d}</Day>
+            {w.map(([d, b], j) => (
+              <Day className={!b ? 'disable' : 'able'} key={j}>
+                {d}
+              </Day>
             ))}
           </OneWeek>
         ))}
@@ -57,6 +63,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 15rem;
+  height: 10%;
   border: 1px solid black;
   margin: 0.5rem;
 `;
@@ -92,5 +99,10 @@ const Days = styled.div`
 const Day = styled.div`
   width: 100%;
   border: 1px solid black;
-  cursor: pointer;
+  &.able {
+    cursor: pointer;
+  }
+  &.disable {
+    color: gray;
+  }
 `;

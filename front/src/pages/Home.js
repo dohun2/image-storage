@@ -28,7 +28,7 @@ const Home = () => {
       </TimeBar>
       <CalendarContainer>
         {month.map((v, i) => (
-          <Calendar key={i} curMonth={new Date(new Date().setMonth(v))} />
+          <Calendar key={i} curMonth={new Date(new Date(new Date().setFullYear(crrYear)).setMonth(v))} />
         ))}
       </CalendarContainer>
     </div>
