@@ -2,11 +2,14 @@ import { useCallback } from 'react';
 import styled from 'styled-components';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import Color from '../utils/color';
+import { useRecoilState } from 'recoil';
+import currentDay from '../recoil/atoms';
 
-const Calendar = ({ curMonth, selectedDay, setSelectedDay }) => {
+const Calendar = ({ curMonth }) => {
+  const [selectedDay, setSelectedDay] = useRecoilState(currentDay);
   const week = ['일', '월', '화', '수', '목', '금', '토'];
 
-  const daysArray = useCallback(() => {
+  const days = useCallback(() => {
     const days = [];
     const startMonth = startOfMonth(curMonth);
     const endMonth = endOfMonth(startMonth);
@@ -27,9 +30,7 @@ const Calendar = ({ curMonth, selectedDay, setSelectedDay }) => {
       days.push(oneWeek);
     }
     return days;
-  }, [curMonth]);
-
-  const days = daysArray();
+  }, [curMonth])();
 
   const onClickDay = useCallback(
     (e) => {
