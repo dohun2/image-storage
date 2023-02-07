@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
-import Color from '../../utils/color';
+import Color from '../utils/color';
 
 const Calendar = ({ curMonth, selectedDay, setSelectedDay }) => {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -31,10 +31,13 @@ const Calendar = ({ curMonth, selectedDay, setSelectedDay }) => {
 
   const days = daysArray();
 
-  const onClickDay = useCallback((e) => {
-    const data = e.target.getAttribute('data');
-    setSelectedDay(new Date(data));
-  }, []);
+  const onClickDay = useCallback(
+    (e) => {
+      const data = e.target.getAttribute('data');
+      setSelectedDay(new Date(data));
+    },
+    [setSelectedDay],
+  );
 
   return (
     <Container>
