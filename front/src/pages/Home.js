@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../components/Calendar/Calendar';
+import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md';
+import Color from '../utils/color';
 
 const Home = () => {
   const year = new Date().getFullYear();
@@ -22,9 +24,13 @@ const Home = () => {
       <NavigationBar />
       <Sidebar />
       <TimeBar>
-        <button onClick={onClickLeftBtn}>&lt;</button>
+        <button onClick={onClickLeftBtn}>
+          <MdOutlineArrowBackIos size={'3rem'} color={Color[400]} />
+        </button>
         <h1>{crrYear}</h1>
-        <button onClick={onClickRightBtn}>&gt;</button>
+        <button onClick={onClickRightBtn}>
+          <MdOutlineArrowForwardIos size={'3rem'} color={Color[400]} />
+        </button>
       </TimeBar>
       <CalendarContainer>
         {month.map((v, i) => (
@@ -45,6 +51,7 @@ const TimeBar = styled.div`
     font-size: 3rem;
     margin-left: 2rem;
     margin-right: 2rem;
+    color: ${Color[700]};
   }
   & > button {
     margin-top: 2rem;

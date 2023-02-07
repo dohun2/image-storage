@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth } from 'date-fns';
+import Color from '../../utils/color';
 
 const Calendar = ({ curMonth }) => {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -33,9 +34,7 @@ const Calendar = ({ curMonth }) => {
   return (
     <Container>
       <Month>
-        <span>
-          {format(curMonth, 'yyyy')}년 {format(curMonth, 'M')}월
-        </span>
+        <span>{format(curMonth, 'M')}월</span>
       </Month>
       <Week>
         {week.map((v, i) => (
@@ -46,7 +45,7 @@ const Calendar = ({ curMonth }) => {
         {days.map((w, i) => (
           <OneWeek key={i}>
             {w.map(([d, b], j) => (
-              <Day className={!b ? 'disable' : 'able'} key={j}>
+              <Day className={!b ? 'disabled' : 'enabled'} key={j}>
                 {d}
               </Day>
             ))}
@@ -63,31 +62,40 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 15rem;
-  height: 10%;
-  border: 1px solid black;
+  height: 17rem;
+  border: 3px solid ${Color[500]};
+  border-radius: 0.3rem;
+  padding: 0.5rem;
   margin: 0.5rem;
 `;
 const Month = styled.div`
-  border: 1px solid black;
+  font-size: 1.3rem;
   font-weight: 600;
+  color: ${Color[900]};
+  text-align: center;
+  margin-bottom: 0.3rem;
 `;
 const Week = styled.div`
   display: flex;
-  border: 1px solid black;
+  margin-bottom: 1rem;
   text-align: center;
+  font-weight: 600;
+  color: ${Color[900]};
+
   & > div {
     width: 100%;
-    /* border: 1px solid black; */
   }
 `;
 
 const OneWeek = styled.div`
   display: flex;
+  margin-bottom: 1rem;
+  color: ${Color[800]};
   & :first-child {
     color: red;
   }
   & :last-child {
-    color: blue;
+    color: red;
   }
 `;
 
@@ -97,12 +105,16 @@ const Days = styled.div`
   text-align: center;
 `;
 const Day = styled.div`
-  width: 100%;
-  border: 1px solid black;
-  &.able {
+  width: 3rem;
+  height: 1.3rem;
+  border-radius: 2rem;
+  &.enabled {
     cursor: pointer;
+    &:hover {
+      background-color: ${Color[300]};
+    }
   }
-  &.disable {
-    color: gray;
+  &.disabled {
+    color: ${Color[100]};
   }
 `;
