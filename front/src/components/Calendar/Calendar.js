@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
-import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth } from 'date-fns';
+import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import Color from '../../utils/color';
 
-const Calendar = ({ curMonth }) => {
+const Calendar = ({ curMonth, selectedDay, setSelectedDay }) => {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
 
   const daysArray = useCallback(() => {
@@ -18,9 +18,9 @@ const Calendar = ({ curMonth }) => {
       let oneWeek = [];
       for (let i = 0; i < 7; i++) {
         if (isSameMonth(day, endMonth)) {
-          oneWeek.push([format(day, 'd'), true]);
+          oneWeek.push([format(day, 'd'), true, day]);
         } else {
-          oneWeek.push([format(day, 'd'), false]);
+          oneWeek.push([format(day, 'd'), false, day]);
         }
         day = addDays(day, 1);
       }
@@ -30,6 +30,11 @@ const Calendar = ({ curMonth }) => {
   }, [curMonth]);
 
   const days = daysArray();
+
+  const onClickDay = useCallback((e) => {
+    const data = e.target.getAttribute('data');
+    setSelectedDay(new Date(data));
+  }, []);
 
   return (
     <Container>
@@ -43,9 +48,13 @@ const Calendar = ({ curMonth }) => {
       </Week>
       <Days>
         {days.map((w, i) => (
-          <OneWeek key={i}>
-            {w.map(([d, b], j) => (
-              <Day className={!b ? 'disabled' : 'enabled'} key={j}>
+          <OneWeek onClick={onClickDay} key={i}>
+            {w.map(([d, b, day], j) => (
+              <Day
+                className={[!b ? 'disabled' : 'enabled', isSameDay(day, selectedDay) ? 'selected' : null].join(' ')}
+                key={j}
+                data={day}
+              >
                 {d}
               </Day>
             ))}
@@ -105,9 +114,12 @@ const Days = styled.div`
   text-align: center;
 `;
 const Day = styled.div`
-  width: 3rem;
+  width: 2.2rem;
   height: 1.3rem;
-  border-radius: 2rem;
+  border-radius: 0.3rem;
+  &.selected {
+    background-color: ${Color[300]};
+  }
   &.enabled {
     cursor: pointer;
     &:hover {

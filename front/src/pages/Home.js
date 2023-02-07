@@ -10,6 +10,7 @@ const Home = () => {
   const year = new Date().getFullYear();
   const [crrYear, setCrrYear] = useState(year);
   const month = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const [selectedDay, setSelectedDay] = useState(new Date());
 
   const onClickLeftBtn = useCallback(() => {
     setCrrYear((e) => e - 1);
@@ -34,7 +35,12 @@ const Home = () => {
       </TimeBar>
       <CalendarContainer>
         {month.map((v, i) => (
-          <Calendar key={i} curMonth={new Date(new Date(new Date().setFullYear(crrYear)).setMonth(v))} />
+          <Calendar
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
+            key={i}
+            curMonth={new Date(new Date(new Date().setFullYear(crrYear)).setMonth(v))}
+          />
         ))}
       </CalendarContainer>
     </div>
