@@ -89,8 +89,6 @@ const Form = styled.form`
   margin: 0 auto;
   width: 20rem;
   max-width: 20rem;
-  /* background-color: ${Color[400]}; */
-  /* padding: 20px; */
 `;
 
 const Label = styled.label`
