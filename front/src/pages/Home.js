@@ -1,25 +1,34 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import styled from 'styled-components';
+import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md';
+import { FaPlus } from 'react-icons/fa';
+import Color from '../utils/color';
+import { useRecoilState } from 'recoil';
+import { selectedYearState, showAddImageModalState } from '../recoil/atoms';
+
 import NavigationBar from '../components/NavigationBar';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../components/Calendar';
 import AddImageModal from '../components/AddImageModal';
-import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md';
-import { FaPlus } from 'react-icons/fa';
-import Color from '../utils/color';
 
 const Home = () => {
-  const year = new Date().getFullYear();
-  const [crrYear, setCrrYear] = useState(year);
+  const [crrYear, setCrrYear] = useRecoilState(selectedYearState);
+  const [showAddImageModal, setShowAddImageModal] = useRecoilState(showAddImageModalState);
+
   const month = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
   const onClickLeftBtn = useCallback(() => {
     setCrrYear((e) => e - 1);
-  }, []);
+  }, [setCrrYear]);
 
   const onClickRightBtn = useCallback(() => {
     setCrrYear((e) => e + 1);
-  }, []);
+  }, [setCrrYear]);
+
+  const toggleAddImageModal = useCallback(() => {
+    console.log('11');
+    setShowAddImageModal((e) => !e);
+  }, [setShowAddImageModal]);
 
   return (
     <div>
@@ -35,7 +44,7 @@ const Home = () => {
         </button>
       </TimeBar>
       <ButtonBar>
-        <AddButton>
+        <AddButton onClick={toggleAddImageModal}>
           <span>Add</span>
           <FaPlus size={'1rem'} color={Color[700]} />
         </AddButton>
@@ -45,7 +54,7 @@ const Home = () => {
           <Calendar key={i} curMonth={new Date(new Date(new Date().setFullYear(crrYear)).setMonth(v))} />
         ))}
       </CalendarContainer>
-      <AddImageModal />
+      {showAddImageModal && <AddImageModal toggleAddImageModal={toggleAddImageModal} />}
     </div>
   );
 };

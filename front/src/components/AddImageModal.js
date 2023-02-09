@@ -1,15 +1,16 @@
 import Color from '../utils/color';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import currentDay from '../recoil/atoms';
+import { selectedDayState } from '../recoil/atoms';
 import { BiImageAdd, BiX } from 'react-icons/bi';
 
-const AddImageModal = () => {
-  const selectedDay = useRecoilValue(currentDay);
+const AddImageModal = ({ toggleAddImageModal }) => {
+  const selectedDay = useRecoilValue(selectedDayState);
+
   return (
     <Container>
-      <ModalbackGround />
-      <BiX className="close-icon" />
+      <ModalbackGround onClick={toggleAddImageModal} />
+      <BiX onClick={toggleAddImageModal} className="close-icon" />
       <ModalBox>
         <h5>새로운 사진 등록하기</h5>
         <p>등록일: {selectedDay.toLocaleDateString()}</p>

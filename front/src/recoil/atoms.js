@@ -1,8 +1,16 @@
 import { atom } from 'recoil';
 
-const currentDay = atom({
-  key: 'currentDay',
+export const selectedDayState = atom({
+  key: 'selectedDay',
   default: new Date(),
 });
 
-export default currentDay;
+export const selectedYearState = atom({
+  key: 'selectedYear',
+  default: new Date().getFullYear(),
+});
+
+export const showAddImageModalState = atom({
+  key: 'showAddImageModal',
+  default: false,
+});
