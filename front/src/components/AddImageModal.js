@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Color from '../utils/color';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
@@ -6,6 +7,15 @@ import { BiImageAdd, BiX } from 'react-icons/bi';
 
 const AddImageModal = ({ toggleAddImageModal }) => {
   const selectedDay = useRecoilValue(selectedDayState);
+
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed; 
+      overflow-y: scroll;`;
+    return () => {
+      document.body.style.cssText = '';
+    };
+  }, []);
 
   return (
     <Container>
@@ -55,7 +65,7 @@ const ModalBox = styled.div`
   height: 70vh;
   z-index: 100;
   position: absolute;
-  top: 15%;
+  top: 7%;
   left: 17.5%;
   opacity: 1;
   background-color: ${Color.backgroundColor};
