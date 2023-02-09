@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../components/Calendar';
+import AddImageModal from '../components/AddImageModal';
 import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md';
 import { FaPlus } from 'react-icons/fa';
 import Color from '../utils/color';
@@ -44,6 +45,7 @@ const Home = () => {
           <Calendar key={i} curMonth={new Date(new Date(new Date().setFullYear(crrYear)).setMonth(v))} />
         ))}
       </CalendarContainer>
+      <AddImageModal />
     </div>
   );
 };
