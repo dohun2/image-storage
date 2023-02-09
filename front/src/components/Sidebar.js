@@ -1,32 +1,37 @@
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import Color from '../utils/color';
+import { BiX } from 'react-icons/bi';
+import { BsLayoutSidebar } from 'react-icons/bs';
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [positionX, setPositionX] = useState(0);
+  const [transitionTime, setTransitionTime] = useState(0);
 
   const toggleSidebar = useCallback(() => {
     setShowSidebar((v) => !v);
     setPositionX((v) => (v === 0 ? '-22%' : 0));
+    setTransitionTime((v) => (v === 0 ? '0.4s' : 0));
   }, []);
   return (
-    <Container left={positionX}>
+    <Container left={positionX} transitionTime={transitionTime}>
       <CloseButton
         onClick={() => {
           toggleSidebar();
         }}
       >
-        x
+        <BiX size={'1.5rem'} color={Color.backgroundColor} />
       </CloseButton>
       {showSidebar && (
         <OpenButton
           onClick={() => {
             toggleSidebar();
           }}
-        />
+        >
+          <BsLayoutSidebar size={'1.5rem'} />
+        </OpenButton>
       )}
-      <div>메뉴</div>
     </Container>
   );
 };
@@ -42,14 +47,14 @@ const Container = styled.div`
   top: 2.5rem;
   bottom: 0;
   left: ${(props) => props.left};
-  transition: 0.3s ease;
+  transition: ${(props) => props.transitionTime} ease;
   z-index: 99;
 `;
 
 const CloseButton = styled.button`
-  background-color: ${Color[200]};
+  background-color: transparent;
   position: absolute;
-  left: 80%;
+  left: 75%;
   top: 1%;
   overflow: hidden;
   border: none;
@@ -57,12 +62,9 @@ const CloseButton = styled.button`
 `;
 
 const OpenButton = styled.button`
-  width: 2rem;
-  height: 2rem;
-  background-color: red;
   position: fixed;
   top: 2.5rem;
   left: 0;
   border: none;
-  background-color: ${Color[200]};
+  background-color: ${Color.backgroundColor};
 `;
