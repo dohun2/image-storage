@@ -5,8 +5,8 @@ import { BiX } from 'react-icons/bi';
 import { BsLayoutSidebar } from 'react-icons/bs';
 
 const Sidebar = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [positionX, setPositionX] = useState(0);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [positionX, setPositionX] = useState('-22%');
   const [transitionTime, setTransitionTime] = useState(0);
 
   const toggleSidebar = useCallback(() => {
