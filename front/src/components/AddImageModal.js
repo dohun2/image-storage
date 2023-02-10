@@ -8,7 +8,8 @@ import { BiImageAdd, BiX } from 'react-icons/bi';
 const AddImageModal = ({ toggleAddImageModal }) => {
   const selectedDay = useRecoilValue(selectedDayState);
   const [addedImage, setAddedImage] = useState('');
-  const inputRef = useRef();
+  const inputRef = useRef(null);
+  const dragRef = useRef(null);
 
   const onClickFileInput = useCallback(() => {
     inputRef.current.click();
@@ -21,6 +22,40 @@ const AddImageModal = ({ toggleAddImageModal }) => {
     },
     [addedImage],
   );
+
+  const handleDrag = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setAddedImage(URL.createObjectURL(e.dataTransfer.files[0]));
+  }, []);
+
+  const initDragEvents = useCallback(() => {
+    if (dragRef.current !== null) {
+      dragRef.current.addEventListener('dragenter', handleDrag);
+      dragRef.current.addEventListener('dragleave', handleDrag);
+      dragRef.current.addEventListener('dragover', handleDrag);
+      dragRef.current.addEventListener('drop', handleDrop);
+    }
+  }, [handleDrag, handleDrop]);
+
+  const resetDragEvents = useCallback(() => {
+    if (dragRef.current !== null) {
+      dragRef.current.removeEventListener('dragenter', handleDrag);
+      dragRef.current.removeEventListener('dragleave', handleDrag);
+      dragRef.current.removeEventListener('dragover', handleDrag);
+      dragRef.current.removeEventListener('drop', handleDrop);
+    }
+  }, [handleDrag, handleDrop]);
+
+  useEffect(() => {
+    initDragEvents();
+    return () => resetDragEvents();
+  }, [initDragEvents, resetDragEvents]);
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -35,7 +70,7 @@ const AddImageModal = ({ toggleAddImageModal }) => {
     <Container>
       <ModalbackGround onClick={toggleAddImageModal} />
       <BiX onClick={toggleAddImageModal} className="close-icon" />
-      <ModalBox>
+      <ModalBox ref={dragRef}>
         <h5>새로운 사진 등록하기</h5>
         <p>등록일: {selectedDay.toLocaleDateString()}</p>
         {addedImage.length === 0 ? (
@@ -48,6 +83,7 @@ const AddImageModal = ({ toggleAddImageModal }) => {
         ) : (
           <ImageBox>
             <img src={addedImage} alt="등록이미지" />
+            <ModalBoxBtn>등록하기</ModalBoxBtn>
           </ImageBox>
         )}
       </ModalBox>
@@ -62,9 +98,9 @@ const Container = styled.div`
     font-size: 2rem;
     color: ${Color.backgroundColor};
     z-index: 100;
-    position: absolute;
-    top: 5%;
-    right: 10%;
+    position: fixed;
+    top: 15%;
+    right: 11%;
     cursor: pointer;
   }
 `;
@@ -85,11 +121,11 @@ const ModalBox = styled.div`
   width: 65%;
   height: 70vh;
   z-index: 100;
-  position: absolute;
-  top: 7%;
+  position: fixed;
+  top: 20%;
   left: 17.5%;
   opacity: 1;
-  background-color: ${Color.backgroundColor};
+  background-color: ${Color[50]};
   border-radius: 8px;
   border: none;
   display: flex;
@@ -116,14 +152,16 @@ const ModalBox = styled.div`
 
 const ImageBox = styled.div`
   color: ${Color[900]};
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   & > img {
-    width: 70%;
-    height: 70%;
+    height: 50%;
+    max-width: 90%;
+    margin: 1rem;
   }
 `;
 

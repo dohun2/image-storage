@@ -10,8 +10,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [email, onChangeEmail, setEmail] = useInput('');
   const [password, onChangePassword, setPassword] = useInput('');
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const onSubmit = useCallback(
     (e) => {
