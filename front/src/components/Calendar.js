@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import Color from '../utils/color';
 import { useRecoilState } from 'recoil';
-import currentDay from '../recoil/atoms';
+import { selectedDayState } from '../recoil/atoms';
 
 const Calendar = ({ curMonth }) => {
-  const [selectedDay, setSelectedDay] = useRecoilState(currentDay);
+  const [selectedDay, setSelectedDay] = useRecoilState(selectedDayState);
   const week = ['일', '월', '화', '수', '목', '금', '토'];
 
   const days = useCallback(() => {

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import Color from '../utils/color';
+import { Link } from 'react-router-dom';
 
 const NavigationBar = () => {
   return (
     <Container>
-      <span>Image Storage</span>
-      <div></div>
+      <TitleLink to="/">Image Storage</TitleLink>
+      <Profile></Profile>
     </Container>
   );
 };
@@ -21,18 +22,22 @@ const Container = styled.div`
   align-items: center;
   height: 2.5rem;
   max-height: 2.5rem;
-  & > span {
-    margin: 1.5rem;
-    font-family: 'Yeon Sung', cursive;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  & > div {
-    margin: 1.5rem;
-    background-color: white;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    cursor: pointer;
-  }
+`;
+
+const Profile = styled.div`
+  margin: 1.5rem;
+  background-color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+`;
+
+const TitleLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+  margin: 1.5rem;
+  font-family: 'Yeon Sung', cursive;
+  font-weight: 600;
+  cursor: pointer;
 `;

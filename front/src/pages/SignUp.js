@@ -13,9 +13,9 @@ const SignUp = () => {
   const [password, , setPassword] = useInput('');
   const [passwordCheck, , setPasswordCheck] = useInput('');
   const [mismatchPassword, setMismatchPassword] = useState(true);
-  const emailRef = useRef();
-  const idRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef(null);
+  const idRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const onChangePassword = useCallback(
     (e) => {
@@ -135,7 +135,6 @@ const Form = styled.form`
   margin: 0 auto;
   width: 20rem;
   max-width: 20rem;
-  /* background-color: ${Color[400]}; */
   /* padding: 20px; */
 `;
 
