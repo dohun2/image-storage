@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Color from '../utils/color';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
@@ -7,6 +7,20 @@ import { BiImageAdd, BiX } from 'react-icons/bi';
 
 const AddImageModal = ({ toggleAddImageModal }) => {
   const selectedDay = useRecoilValue(selectedDayState);
+  const [addedImage, setAddedImage] = useState('');
+  const inputRef = useRef();
+
+  const onClickFileInput = useCallback(() => {
+    inputRef.current.click();
+  }, []);
+
+  const onUploadImage = useCallback(
+    (e) => {
+      setAddedImage(URL.createObjectURL(e.target.files[0]));
+      console.log(addedImage);
+    },
+    [addedImage],
+  );
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -24,11 +38,18 @@ const AddImageModal = ({ toggleAddImageModal }) => {
       <ModalBox>
         <h5>새로운 사진 등록하기</h5>
         <p>등록일: {selectedDay.toLocaleDateString()}</p>
-        <div>
-          <BiImageAdd size={'6rem'} color={Color[700]} />
-          <p>사진을 여기에 끌어다 놓으세요</p>
-          <button>컴퓨터에서 선택</button>
-        </div>
+        {addedImage.length === 0 ? (
+          <ImageBox>
+            <BiImageAdd size={'6rem'} color={Color[700]} />
+            <p>사진을 여기에 끌어다 놓으세요</p>
+            <input type="file" accept="image/*" ref={inputRef} onChange={onUploadImage} />
+            <ModalBoxBtn onClick={onClickFileInput}>컴퓨터에서 선택</ModalBoxBtn>
+          </ImageBox>
+        ) : (
+          <ImageBox>
+            <img src={addedImage} alt="등록이미지" />
+          </ImageBox>
+        )}
       </ModalBox>
     </Container>
   );
@@ -73,6 +94,11 @@ const ModalBox = styled.div`
   border: none;
   display: flex;
   flex-direction: column;
+  & input {
+    display: none;
+  }
+  & img {
+  }
   & > h5 {
     color: ${Color[800]};
     text-align: center;
@@ -86,25 +112,31 @@ const ModalBox = styled.div`
     font-size: 0.9rem;
     margin: 0.3rem;
   }
-  & > div {
-    color: ${Color[900]};
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+`;
+
+const ImageBox = styled.div`
+  color: ${Color[900]};
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & > img {
+    width: 70%;
+    height: 70%;
   }
-  & button {
-    font-size: 0.78rem;
-    margin-top: 0.5rem;
-    padding: 0.3rem;
-    border: none;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    background-color: ${Color[600]};
-    color: ${Color.backgroundColor};
-    :hover {
-      background-color: ${Color[300]};
-    }
+`;
+
+const ModalBoxBtn = styled.button`
+  font-size: 0.78rem;
+  margin-top: 0.5rem;
+  padding: 0.3rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  background-color: ${Color[600]};
+  color: ${Color.backgroundColor};
+  :hover {
+    background-color: ${Color[300]};
   }
 `;
