@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import Color from '../utils/color';
+import Color from '../../utils/color';
 import { BiX } from 'react-icons/bi';
 import { BsLayoutSidebar } from 'react-icons/bs';
 

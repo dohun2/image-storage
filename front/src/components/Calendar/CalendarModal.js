@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
-import Color from '../utils/color';
+import Color from '../../utils/color';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { showAddImageModalState, selectedDayState } from '../recoil/atoms';
+import { showAddImageModalState, selectedDayState } from '../../recoil/atoms';
 import { useNavigate } from 'react-router';
 
 const CalendarModal = () => {
