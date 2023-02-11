@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Color from '../utils/color';
+import Color from '../../utils/color';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { selectedDayState } from '../recoil/atoms';
 import { BiImageAdd, BiX } from 'react-icons/bi';
+import UserInputImageInfo from './UserInputImageInfo';
 
 const AddImageModal = ({ toggleAddImageModal }) => {
-  const selectedDay = useRecoilValue(selectedDayState);
   const [addedImage, setAddedImage] = useState('');
   const inputRef = useRef(null);
   const dragRef = useRef(null);
@@ -72,7 +70,7 @@ const AddImageModal = ({ toggleAddImageModal }) => {
       <BiX onClick={toggleAddImageModal} className="close-icon" />
       <ModalBox ref={dragRef}>
         <h5>새로운 사진 등록하기</h5>
-        <p>등록일: {selectedDay.toLocaleDateString()}</p>
+        <UserInputImageInfo />
         {addedImage.length === 0 ? (
           <ImageBox>
             <BiImageAdd size={'6rem'} color={Color[700]} />
@@ -130,11 +128,7 @@ const ModalBox = styled.div`
   border: none;
   display: flex;
   flex-direction: column;
-  & input {
-    display: none;
-  }
-  & img {
-  }
+
   & > h5 {
     color: ${Color[800]};
     text-align: center;
@@ -162,6 +156,9 @@ const ImageBox = styled.div`
     height: 50%;
     max-width: 90%;
     margin: 1rem;
+  }
+  & > input {
+    display: none;
   }
 `;
 

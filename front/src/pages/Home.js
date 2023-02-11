@@ -6,10 +6,10 @@ import Color from '../utils/color';
 import { useRecoilState } from 'recoil';
 import { selectedYearState, showAddImageModalState } from '../recoil/atoms';
 
-import NavigationBar from '../components/NavigationBar';
-import Sidebar from '../components/Sidebar';
-import Calendar from '../components/Calendar';
-import AddImageModal from '../components/AddImageModal';
+import NavigationBar from '../components/Layout/NavigationBar';
+import Sidebar from '../components/Layout/Sidebar';
+import Calendar from '../components/Calendar/Calendar';
+import AddImageModal from '../components/AddImageModal/AddImageModal';
 
 const Home = () => {
   const [crrYear, setCrrYear] = useRecoilState(selectedYearState);

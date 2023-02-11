@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
-import Color from '../utils/color';
+import Color from '../../utils/color';
 import { useRecoilState } from 'recoil';
-import { selectedDayState, showCalendarModalState } from '../recoil/atoms';
+import { selectedDayState, showCalendarModalState } from '../../recoil/atoms';
 
 import CalendarModal from './CalendarModal';
 

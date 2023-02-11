@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Color from '../utils/color';
+import Color from '../../utils/color';
 import { Link } from 'react-router-dom';
 
 const NavigationBar = () => {
