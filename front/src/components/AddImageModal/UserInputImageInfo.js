@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectedDayState } from '../../recoil/atoms';
+import useInput from '../../hooks/useInput';
 import Color from '../../utils/color';
 
 const UserInputImageInfo = () => {
+  const [title, onChangeTitle] = useInput('');
   const [selectedDay, setSelectedDay] = useRecoilState(selectedDayState);
   const getDateFormat = useCallback((date) => {
     const year = date.getFullYear();
@@ -25,7 +27,7 @@ const UserInputImageInfo = () => {
   return (
     <Container>
       <DatePicker type="date" value={crrDay} onChange={onChangeDay} />
-      <TextInput type="text" placeholder="사진 이름" />
+      <TextInput type="text" placeholder="사진 이름" value={title} onChange={onChangeTitle} />
     </Container>
   );
 };
