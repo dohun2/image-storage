@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import Color from '../utils/color';
 import { useRecoilState } from 'recoil';
-import { selectedDayState } from '../recoil/atoms';
+import { selectedDayState, showCalendarModalState } from '../recoil/atoms';
+
+import CalendarModal from './CalendarModal';
 
 const Calendar = ({ curMonth }) => {
   const [selectedDay, setSelectedDay] = useRecoilState(selectedDayState);
+  const [showCalendarModal, setShowCalendarModal] = useRecoilState(showCalendarModalState);
   const week = ['일', '월', '화', '수', '목', '금', '토'];
 
   const days = useCallback(() => {
@@ -23,7 +26,7 @@ const Calendar = ({ curMonth }) => {
         if (isSameMonth(day, endMonth)) {
           oneWeek.push([format(day, 'd'), true, day]);
         } else {
-          oneWeek.push([format(day, 'd'), false, day]);
+          oneWeek.push([format(day, 'd'), false]);
         }
         day = addDays(day, 1);
       }
@@ -36,8 +39,9 @@ const Calendar = ({ curMonth }) => {
     (e) => {
       const data = e.target.getAttribute('data');
       setSelectedDay(new Date(data));
+      setShowCalendarModal((e) => !e);
     },
-    [setSelectedDay],
+    [setSelectedDay, setShowCalendarModal],
   );
 
   return (
@@ -60,6 +64,7 @@ const Calendar = ({ curMonth }) => {
                 data={day}
               >
                 {d}
+                {isSameDay(day, selectedDay) && showCalendarModal && <CalendarModal />}
               </Day>
             ))}
           </OneWeek>
@@ -104,10 +109,10 @@ const OneWeek = styled.div`
   display: flex;
   margin-bottom: 1rem;
   color: ${Color[800]};
-  & :first-child {
+  & > :first-child {
     color: red;
   }
-  & :last-child {
+  & > :last-child {
     color: red;
   }
 `;
