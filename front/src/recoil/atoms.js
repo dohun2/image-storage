@@ -14,3 +14,8 @@ export const showAddImageModalState = atom({
   key: 'showAddImageModal',
   default: false,
 });
+
+export const showCalendarModalState = atom({
+  key: 'showCalendarModal',
+  default: false,
+});

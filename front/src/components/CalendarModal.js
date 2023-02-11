@@ -19,7 +19,6 @@ const CalendarModal = () => {
     <ModalBox>
       <ModalItem>상세페이지</ModalItem>
       <ModalItem onClick={toggleAddImageModal}>등록</ModalItem>
-      <ModalItem>닫기</ModalItem>
     </ModalBox>
   );
 };
