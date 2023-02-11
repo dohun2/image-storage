@@ -26,7 +26,6 @@ const Home = () => {
   }, [setCrrYear]);
 
   const toggleAddImageModal = useCallback(() => {
-    console.log('11');
     setShowAddImageModal((e) => !e);
   }, [setShowAddImageModal]);
 

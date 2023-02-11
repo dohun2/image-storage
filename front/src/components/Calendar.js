@@ -5,6 +5,8 @@ import Color from '../utils/color';
 import { useRecoilState } from 'recoil';
 import { selectedDayState } from '../recoil/atoms';
 
+import CalendarModal from './CalendarModal';
+
 const Calendar = ({ curMonth }) => {
   const [selectedDay, setSelectedDay] = useRecoilState(selectedDayState);
   const week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -60,6 +62,7 @@ const Calendar = ({ curMonth }) => {
                 data={day}
               >
                 {d}
+                {isSameDay(day, selectedDay) && <CalendarModal />}
               </Day>
             ))}
           </OneWeek>
@@ -104,10 +107,10 @@ const OneWeek = styled.div`
   display: flex;
   margin-bottom: 1rem;
   color: ${Color[800]};
-  & :first-child {
+  & > :first-child {
     color: red;
   }
-  & :last-child {
+  & > :last-child {
     color: red;
   }
 `;
