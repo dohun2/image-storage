@@ -1,11 +1,21 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import Color from '../utils/color';
-import { useSetRecoilState } from 'recoil';
-import { showAddImageModalState } from '../recoil/atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { showAddImageModalState, selectedDayState } from '../recoil/atoms';
+import { useNavigate } from 'react-router';
 
 const CalendarModal = () => {
+  const navigate = useNavigate();
   const setShowAddImageModal = useSetRecoilState(showAddImageModalState);
+  const selectedDay = useRecoilValue(selectedDayState);
+
+  const getDateFormat = useCallback((date) => {
+    const year = date.getFullYear();
+    const month = ('0' + (1 + date.getMonth())).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return year + month + day;
+  }, []);
 
   const toggleAddImageModal = useCallback(
     (e) => {
@@ -15,9 +25,17 @@ const CalendarModal = () => {
     [setShowAddImageModal],
   );
 
+  const goDetailPage = useCallback(
+    (e) => {
+      e.stopPropagation();
+      navigate(`/detail/${getDateFormat(selectedDay)}`);
+    },
+    [navigate, getDateFormat, selectedDay],
+  );
+
   return (
     <ModalBox>
-      <ModalItem>상세페이지</ModalItem>
+      <ModalItem onClick={goDetailPage}>상세페이지</ModalItem>
       <ModalItem onClick={toggleAddImageModal}>등록</ModalItem>
     </ModalBox>
   );
