@@ -26,7 +26,7 @@ const Calendar = ({ curMonth }) => {
         if (isSameMonth(day, endMonth)) {
           oneWeek.push([format(day, 'd'), true, day]);
         } else {
-          oneWeek.push([format(day, 'd'), false, day]);
+          oneWeek.push([format(day, 'd'), false]);
         }
         day = addDays(day, 1);
       }

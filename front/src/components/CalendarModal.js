@@ -43,7 +43,7 @@ const ModalItem = styled.div`
   width: 100%;
   border: 1px solid ${Color[200]};
   background-color: ${Color[100]};
-  color: black;
+  color: ${Color[900]};
   :hover {
     background-color: ${Color[300]};
   }
