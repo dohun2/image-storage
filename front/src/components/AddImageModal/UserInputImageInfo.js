@@ -3,19 +3,13 @@ import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectedDayState } from '../../recoil/atoms';
 import useInput from '../../hooks/useInput';
+import getDateFormat from '../../utils/getDateFormat';
 import Color from '../../utils/color';
 
 const UserInputImageInfo = () => {
   const [title, onChangeTitle] = useInput('');
   const [selectedDay, setSelectedDay] = useRecoilState(selectedDayState);
-  const getDateFormat = useCallback((date) => {
-    const year = date.getFullYear();
-    const month = ('0' + (1 + date.getMonth())).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
-  }, []);
-
-  const crrDay = getDateFormat(selectedDay);
+  const crrDay = getDateFormat(selectedDay, 'input');
 
   const onChangeDay = useCallback(
     (e) => {

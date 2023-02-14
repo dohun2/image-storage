@@ -15,6 +15,7 @@ export default NavigationBar;
 
 const Container = styled.div`
   position: fixed;
+  top: 0;
   width: 100%;
   background-color: ${Color[400]};
   display: flex;
@@ -22,6 +23,7 @@ const Container = styled.div`
   align-items: center;
   height: 2.5rem;
   max-height: 2.5rem;
+  margin-bottom: 1rem;
 `;
 
 const Profile = styled.div`
