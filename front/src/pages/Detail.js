@@ -18,7 +18,7 @@ const Detail = () => {
     (e) => {
       setSelectedDay(new Date(e.target.value));
       const prams = getDateFormat(new Date(e.target.value));
-      navigate(`/detail/${prams}}`);
+      navigate(`/detail/${prams}`);
     },
     [setSelectedDay, navigate],
   );

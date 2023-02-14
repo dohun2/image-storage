@@ -3,20 +3,22 @@ import styled from 'styled-components';
 import Color from '../../utils/color';
 import getDateFormat from '../../utils/getDateFormat';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { showAddImageModalState, selectedDayState } from '../../recoil/atoms';
+import { showAddImageModalState, selectedDayState, showCalendarModalState } from '../../recoil/atoms';
 import { useNavigate } from 'react-router';
 
 const CalendarModal = () => {
   const navigate = useNavigate();
   const setShowAddImageModal = useSetRecoilState(showAddImageModalState);
+  const setShowCalendarModal = useSetRecoilState(showCalendarModalState);
   const selectedDay = useRecoilValue(selectedDayState);
 
   const toggleAddImageModal = useCallback(
     (e) => {
       e.stopPropagation();
       setShowAddImageModal((e) => !e);
+      setShowCalendarModal((e) => !e);
     },
-    [setShowAddImageModal],
+    [setShowAddImageModal, setShowCalendarModal],
   );
 
   const goDetailPage = useCallback(
