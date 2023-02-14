@@ -25,8 +25,9 @@ const CalendarModal = () => {
     (e) => {
       e.stopPropagation();
       navigate(`/detail/${getDateFormat(selectedDay)}`);
+      setShowCalendarModal((e) => !e);
     },
-    [navigate, selectedDay],
+    [navigate, selectedDay, setShowCalendarModal],
   );
 
   return (
