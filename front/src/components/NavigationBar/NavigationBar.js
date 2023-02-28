@@ -1,12 +1,21 @@
 import styled from 'styled-components';
 import Color from '../../utils/color';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { showProfileModalState } from '../../recoil/atoms';
+import ProfileModal from './ProfileModal';
 
 const NavigationBar = () => {
+  const [showProfileModal, setShowProfileModal] = useRecoilState(showProfileModalState);
+
+  const toggleProfileModal = () => {
+    setShowProfileModal((e) => !e);
+  };
+
   return (
     <Container>
       <TitleLink to="/">Image Storage</TitleLink>
-      <Profile></Profile>
+      <Profile onClick={toggleProfileModal}>{showProfileModal && <ProfileModal />}</Profile>
     </Container>
   );
 };

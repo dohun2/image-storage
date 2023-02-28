@@ -6,8 +6,8 @@ import Color from '../utils/color';
 import { useRecoilState } from 'recoil';
 import { selectedYearState, showAddImageModalState } from '../recoil/atoms';
 
-import NavigationBar from '../components/Layout/NavigationBar';
-import Sidebar from '../components/Layout/Sidebar';
+import NavigationBar from '../components/NavigationBar/NavigationBar';
+import Sidebar from '../components/Sidebar/Sidebar';
 import Calendar from '../components/Calendar/Calendar';
 import AddImageModal from '../components/AddImageModal/AddImageModal';
 

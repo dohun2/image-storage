@@ -5,8 +5,8 @@ import getDateFormat from '../utils/getDateFormat';
 import { useRecoilState } from 'recoil';
 import { selectedDayState } from '../recoil/atoms';
 
-import NavigationBar from '../components/Layout/NavigationBar';
-import Sidebar from '../components/Layout/Sidebar';
+import NavigationBar from '../components/NavigationBar/NavigationBar';
+import Sidebar from '../components/Sidebar/Sidebar';
 import { useNavigate } from 'react-router';
 
 const Detail = () => {

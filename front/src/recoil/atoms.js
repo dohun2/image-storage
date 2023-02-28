@@ -19,3 +19,8 @@ export const showCalendarModalState = atom({
   key: 'showCalendarModal',
   default: false,
 });
+
+export const showProfileModalState = atom({
+  key: 'showProfileModal',
+  default: false,
+});
