@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import Color from '../utils/color';
 import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
-import { useCallback, useRef, useState } from 'react';
-import axios from 'axios';
-import API from '../utils/api';
+import React, { useCallback, useRef, useState } from 'react';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -33,41 +31,26 @@ const SignUp = () => {
     [setPasswordCheck, password],
   );
 
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (!email) {
-        emailRef.current.focus();
-        return;
-      }
-      if (!id || !id.trim()) {
-        idRef.current.focus();
-        return;
-      }
-      if (mismatchPassword || !password.trim()) {
-        passwordRef.current.focus();
-        return;
-      }
-      axios
-        .post(API.SignUp, {
-          email,
-          id,
-          password,
-        })
-        .then((response) => {
-          console.log(response);
-          setEmail('');
-          setId('');
-          setPassword('');
-          setPasswordCheck('');
-          navigate('/login');
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
-    },
-    [mismatchPassword, email, id, password, setEmail, setId, setPassword, setPasswordCheck, navigate],
-  );
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+    if (!email) {
+      console.log(email);
+      emailRef.current.focus();
+      return;
+    }
+    if (!id || !id.trim()) {
+      idRef.current.focus();
+      return;
+    }
+    if (mismatchPassword || !password.trim()) {
+      passwordRef.current.focus();
+      return;
+    }
+    const userInfo = JSON.stringify({ email, id, password });
+    localStorage.setItem('userList', userInfo);
+    navigate('/');
+  }, []);
+
   return (
     <div id="container">
       <Header>Image Storage</Header>
@@ -135,7 +118,6 @@ const Form = styled.form`
   margin: 0 auto;
   width: 20rem;
   max-width: 20rem;
-  /* background-color: ${Color[400]}; */
   /* padding: 20px; */
 `;
 

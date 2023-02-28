@@ -10,8 +10,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [email, onChangeEmail, setEmail] = useInput('');
   const [password, onChangePassword, setPassword] = useInput('');
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const onSubmit = useCallback(
     (e) => {
@@ -89,8 +89,6 @@ const Form = styled.form`
   margin: 0 auto;
   width: 20rem;
   max-width: 20rem;
-  /* background-color: ${Color[400]}; */
-  /* padding: 20px; */
 `;
 
 const Label = styled.label`
